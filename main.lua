@@ -68,20 +68,23 @@
 		if((a:getUserData() == "Bullet") and (b:getUserData():sub(0,5) == "Enemy")) then
 			print("collided")
 			for i,v in ipairs(enemy) do
-				io.write("b.dir is: " + tostring(b.dir) + " and v.dir is: " + tostring(v.dir))
-				if (b:getUserData():sub(5,1) == v.dir) then
-					table.remove(enemy, v.dir)
+				io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
+				if (b:getUserData():sub(6,7) == tostring(v.dir)) then
+					b:destroy()
+					table.remove(enemy, i)
 				end
 			end
 		end
 		if((b:getUserData() == "Bullet") and (a:getUserData():sub(0,5) == "Enemy")) then
-			print("collided")
+			print("collided2")
 			for i,v in ipairs(enemy) do
 				io.write("a:getUserData():sub(6,7) is: " .. a:getUserData():sub(6,7) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
 				--io.write(a:getUserData())
 				if (a:getUserData():sub(6,7) == tostring(v.dir)) then
 					io.write("removed at position: " .. tostring(i) .. "\n")
+					a:destroy()
 					table.remove(enemy, i)
+
 				end
 			end
 		end
@@ -90,7 +93,8 @@
 
 	function endContact(a, b, coll)
 		
-	    ---print('beginning contact')
+	    print('end contact')
+	    
 	end
 
 	function preSolve(a, b, coll)

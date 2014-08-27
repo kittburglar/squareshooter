@@ -17,14 +17,7 @@ function enemy.load()
 
 	--collusion
 	--enemy = {}
-		enemy.b = love.physics.newBody(world,maxBorderX/2,maxBorderY/2,"dynamic")
-		--enemy.b:setMass(10)
-		enemy.s = love.physics.newRectangleShape(-25,-25,50,50,0)
-		enemy.f = love.physics.newFixture(enemy.b,enemy.s)
-		--enemy.b:setMass(10)
-		enemy.f:setRestitution(0.4)
-		enemy.f:setUserData("Enemy")
-		enemy.b:setInertia(0)
+		
 end
 
 function enemy.spawn(x,y,dir)
@@ -47,7 +40,7 @@ end
 ]]
 function enemy.draw()
 	for i,v in ipairs(enemy) do
-		
+
 		love.graphics.setColor(0,0,255)
 		love.graphics.rectangle('fill',v.body:getX(),v.body:getY(),v.width,v.height)
 	end
