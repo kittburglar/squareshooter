@@ -64,13 +64,26 @@
 	end
 
 	function beginContact(a, b, coll)
-		if((a:getUserData() == "Bullet") and (b:getUserData() == "Enemy")) then
+		--io.write(b:getUserData():sub(0,5));
+		if((a:getUserData() == "Bullet") and (b:getUserData():sub(0,5) == "Enemy")) then
 			print("collided")
-			table.remove(enemy)
+			for i,v in ipairs(enemy) do
+				io.write("b.dir is: " + tostring(b.dir) + " and v.dir is: " + tostring(v.dir))
+				if (b:getUserData():sub(5,1) == v.dir) then
+					table.remove(enemy, v.dir)
+				end
+			end
 		end
-		if((b:getUserData() == "Bullet") and (a:getUserData() == "Enemy")) then
+		if((b:getUserData() == "Bullet") and (a:getUserData():sub(0,5) == "Enemy")) then
 			print("collided")
-			table.remove(enemy)
+			for i,v in ipairs(enemy) do
+				io.write("a:getUserData():sub(6,7) is: " .. a:getUserData():sub(6,7) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
+				--io.write(a:getUserData())
+				if (a:getUserData():sub(6,7) == tostring(v.dir)) then
+					io.write("removed at position: " .. tostring(i) .. "\n")
+					table.remove(enemy, i)
+				end
+			end
 		end
 		--print('beginning contact')   
 	end

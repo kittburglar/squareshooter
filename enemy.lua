@@ -34,7 +34,7 @@ function enemy.spawn(x,y,dir)
 	enemy.s = love.physics.newRectangleShape(-25,-25,50,50,0)
 	enemy.f = love.physics.newFixture(enemy.b,enemy.s)
 	enemy.f:setRestitution(0)
-	enemy.f:setUserData("Enemy")
+	enemy.f:setUserData("Enemy" .. tostring(dir))
 	table.insert(enemy, {width = 50, height = 50,x = x, y = y, dir = dir, body = enemy.b, shape = enemy.s, fixture = enemy.f})
 	
 end
@@ -47,6 +47,7 @@ end
 ]]
 function enemy.draw()
 	for i,v in ipairs(enemy) do
+		
 		love.graphics.setColor(0,0,255)
 		love.graphics.rectangle('fill',v.body:getX(),v.body:getY(),v.width,v.height)
 	end
