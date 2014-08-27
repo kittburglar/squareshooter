@@ -69,15 +69,15 @@ function bullet.shoot(key)
 		]]
 		if (key == "up") then
 			print("up");
-			bullet.spawn(player.b:getX() + player.width/2,player.b:getY(),'up');
+			bullet.spawn(player.b:getX(), player.b:getY() - player.height/2,'up');
 		elseif (key == "right") then
 			print("right");
-			bullet.spawn(player.b:getX() + player.width,player.b:getY() + player.height/2,'right');
+			bullet.spawn(player.b:getX() + player.width/2,player.b:getY(),'right');
 		elseif (key == "down") then
 			print("down");
-			bullet.spawn(player.b:getX() + player.width/2,player.b:getY() + player.height,'down');
+			bullet.spawn(player.b:getX(),player.b:getY() + player.height/2,'down');
 		elseif (key == "left") then
 			print("left");	
-			bullet.spawn(player.b:getX(), player.b:getY() + player.height/2,'left');
+			bullet.spawn(player.b:getX() - player.width/2, player.b:getY(),'left');
 	    end
 end
