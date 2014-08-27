@@ -24,11 +24,10 @@ function enemy.spawn(x,y,dir)
 	enemy.b = love.physics.newBody(world,maxBorderX/2,maxBorderY/2,"dynamic")
 	enemy.b:setMass(10)
 	enemy.b:setGravityScale(0)
-	enemy.s = love.physics.newRectangleShape(-25,-25,50,50,0)
+	enemy.s = love.physics.newRectangleShape(50,50)
 	enemy.f = love.physics.newFixture(enemy.b,enemy.s)
-	enemy.f:setRestitution(0)
 	enemy.f:setUserData("Enemy" .. tostring(dir))
-	table.insert(enemy, {width = 50, height = 50,x = x, y = y, dir = dir, body = enemy.b, shape = enemy.s, fixture = enemy.f})
+	table.insert(enemy, {width = 50, height = 50,x = enemy.b:getX(), y = enemy.b:getY(), dir = dir, body = enemy.b, shape = enemy.s, fixture = enemy.f})
 	
 end
 --[[
@@ -40,9 +39,8 @@ end
 ]]
 function enemy.draw()
 	for i,v in ipairs(enemy) do
-
 		love.graphics.setColor(0,0,255)
-		love.graphics.rectangle('fill',v.body:getX(),v.body:getY(),v.width,v.height)
+		love.graphics.rectangle('fill',v.body:getX()-25,v.body:getY()-25,v.width,v.height)
 	end
 end
 
@@ -73,10 +71,8 @@ end
 
 function enemy.move(x,y)
 	for i,v in ipairs(enemy) do
-		--if v.dir == 'up' then
-			--v.body:applyForce(0, -1000)
-			v.body:applyForce(math.max(math.min(player.b:getX() - v.body:getX(),100), -100), math.max(math.min(player.b:getY() - v.body:getY(),100), -100))
-		--end
+			--v.body:applyForce(math.max(math.min(player.b:getX() - v.body:getX(),100), -100), math.max(math.min(player.b:getY() - v.body:getY(),100), -100))
+		
 		
 	end
 end

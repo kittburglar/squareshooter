@@ -21,7 +21,7 @@ function player.load()
 	--player = {}
 		player.b = love.physics.newBody(world,maxBorderX/2,maxBorderY/2,"dynamic")
 		--player.b:setMass(10)
-		player.s = love.physics.newRectangleShape(-25, -25 ,50,50,0)
+		player.s = love.physics.newRectangleShape(50,50)
 		player.f = love.physics.newFixture(player.b,player.s)
 		player.f:setRestitution(0)
 		player.f:setUserData("Player")
@@ -30,7 +30,7 @@ end
 function player.draw()
 	love.graphics.setColor(225,0,0)
 	--love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
-	love.graphics.rectangle("fill", player.b:getX(),player.b:getY(),player.width,player.height)
+	love.graphics.rectangle("fill", player.b:getX()-25,player.b:getY()-25,player.width,player.height)
 
 end
 

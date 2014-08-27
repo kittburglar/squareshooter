@@ -9,14 +9,14 @@ function bullet.spawn(x,y,dir)
 	bullet.f = love.physics.newFixture(bullet.b,bullet.s)
 	bullet.f:setRestitution(0)
 	bullet.f:setUserData("Bullet")
-	table.insert(bullet, {width = 10, height = 10,x = x, y = y, dir = dir, body = bullet.b, shape = bullet.s, fixture = bullet.f})
+	table.insert(bullet, {width = 10, height = 10,x = bullet.b:getX(), y = bullet.b:getY(), dir = dir, body = bullet.b, shape = bullet.s, fixture = bullet.f})
 	
 end
 
 function bullet.draw()
 	for i,v in ipairs(bullet) do
 		love.graphics.setColor(0,255,0)
-		love.graphics.rectangle('fill',v.body:getX(),v.body:getY(),v.width,v.height)
+		love.graphics.rectangle('fill',v.body:getX()-5,v.body:getY()-5,v.width,v.height)
 	end
 end
 
