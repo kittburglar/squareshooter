@@ -70,7 +70,7 @@
 			for i,v in ipairs(enemy) do
 				io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
 				if (b:getUserData():sub(6,7) == tostring(v.dir)) then
-					io.write("removed at position: " .. tostring(i) .. "\n")
+					io.write("remove at position: " .. tostring(i) .. "\n")
 					b:destroy()
 					table.remove(enemy, i)
 				end
@@ -82,9 +82,15 @@
 				io.write("a:getUserData():sub(6,7) is: " .. a:getUserData():sub(6,7) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
 				--io.write(a:getUserData())
 				if (a:getUserData():sub(6,7) == tostring(v.dir)) then
-					io.write("removed at position: " .. tostring(i) .. "\n")
-					a:destroy()
-					table.remove(enemy, i)
+					if (tonumber(v.hitpoints) == 0) then 
+						io.write("hitpoint is: " .. v.hitpoints .. "\n")
+						io.write("remove at position: " .. tostring(i) .. "\n")
+						a:destroy()
+						table.remove(enemy, i)
+					else
+						print("Removing 1 hitpoint")
+						v.hitpoints = v.hitpoints - 1
+					end
 
 				end
 			end
@@ -95,30 +101,7 @@
 	function endContact(a, b, coll)
 		
 	    print('end contact')
-	    if((a:getUserData() == "Bullet") and (b:getUserData():sub(0,5) == "Enemy")) then
-			print("collided")
-			for i,v in ipairs(enemy) do
-				io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
-				if (b:getUserData():sub(6,7) == tostring(v.dir)) then
-					io.write("removed at position: " .. tostring(i) .. "\n")
-					b:destroy()
-					table.remove(enemy, i)
-				end
-			end
-		end
-		if((b:getUserData() == "Bullet") and (a:getUserData():sub(0,5) == "Enemy")) then
-			print("collided2")
-			for i,v in ipairs(enemy) do
-				io.write("a:getUserData():sub(6,7) is: " .. a:getUserData():sub(6,7) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
-				--io.write(a:getUserData())
-				if (a:getUserData():sub(6,7) == tostring(v.dir)) then
-					io.write("removed at position: " .. tostring(i) .. "\n")
-					a:destroy()
-					table.remove(enemy, i)
-
-				end
-			end
-		end
+	    
 	end
 
 	function preSolve(a, b, coll)

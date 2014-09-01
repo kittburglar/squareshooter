@@ -16,18 +16,19 @@ function enemy.load()
 	enemy.jetpack = true
 
 	--collusion
-	--enemy = {}
-		
+	--enemy = {}	
 end
 
-function enemy.spawn(x,y,dir)
+
+
+function enemy.spawn(x,y,dir,hp)
 	enemy.b = love.physics.newBody(world,maxBorderX/2,maxBorderY/2,"dynamic")
 	enemy.b:setMass(10)
 	enemy.b:setGravityScale(0)
 	enemy.s = love.physics.newRectangleShape(50,50)
 	enemy.f = love.physics.newFixture(enemy.b,enemy.s)
 	enemy.f:setUserData("Enemy" .. tostring(dir))
-	table.insert(enemy, {width = 50, height = 50,x = enemy.b:getX(), y = enemy.b:getY(), dir = dir, body = enemy.b, shape = enemy.s, fixture = enemy.f})
+	table.insert(enemy, {hitpoints = hp, width = 50, height = 50,x = enemy.b:getX(), y = enemy.b:getY(), dir = dir, body = enemy.b, shape = enemy.s, fixture = enemy.f})
 	
 end
 --[[
