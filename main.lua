@@ -6,7 +6,7 @@
 	require "conf"
 
 	bounds = {}
-
+	paused = false
 	function love.load()
 		require("loveframes")
 		xStar = {}    -- new array
@@ -84,6 +84,9 @@
 						io.write("remove at position: " .. tostring(i) .. "\n")
 						b:destroy()
 						table.remove(enemy, i)
+						if (table.maxn(enemy) == 0) then
+							endLevel()
+						end
 					else
 						print("Removing 1 hitpoint")
 						v.hitpoints = v.hitpoints - 1
@@ -102,6 +105,9 @@
 						io.write("remove at position: " .. tostring(i) .. "\n")
 						a:destroy()
 						table.remove(enemy, i)
+						if (table.maxn(enemy) == 0) then
+							endLevel()
+						end
 					else
 						print("Removing 1 hitpoint")
 						v.hitpoints = v.hitpoints - 1
@@ -116,11 +122,17 @@
 				io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
 				if (b:getUserData():sub(6,7) == tostring(v.dir)) then
 					player.health = player.health - 1
+					if (tonumber(player.health) == 0) then
+						a:destroy()
+					end
 					if (tonumber(v.hitpoints) == 0) then 
 						io.write("hitpoint is: " .. v.hitpoints .. "\n")
 						io.write("remove at position: " .. tostring(i) .. "\n")
 						b:destroy()
 						table.remove(enemy, i)
+						if (table.maxn(enemy) == 0) then
+							endLevel()
+						end
 					else
 						print("Removing 1 hitpoint")
 						v.hitpoints = v.hitpoints - 1
@@ -136,11 +148,17 @@
 
 				if (a:getUserData():sub(6,7) == tostring(v.dir)) then
 					player.health = player.health - 1
+					if (tonumber(player.health) == 0) then
+						b:destroy()
+					end
 					if (tonumber(v.hitpoints) == 0) then 
 						io.write("hitpoint is: " .. v.hitpoints .. "\n")
 						io.write("remove at position: " .. tostring(i) .. "\n")
 						a:destroy()
 						table.remove(enemy, i)
+						if (table.maxn(enemy) == 0) then
+							endLevel()
+						end
 					else
 						print("Removing 1 hitpoint")
 						v.hitpoints = v.hitpoints - 1
@@ -179,6 +197,7 @@
 	end
 
 	function love.update(dt)
+		if paused then return end
 		world:update(dt)
 		UPDATE_PLAYER(dt)
 		UPDATE_ENEMY(dt)
@@ -193,8 +212,12 @@
 	end
 
 	function love.keypressed(key)
-		bullet.shoot(key)
-
+		if key == "p" then
+			io.write("pause button pressed\n");
+			paused = not paused
+		else
+			bullet.shoot(key)
+		end
 	end
 
 	function love.draw()
@@ -230,4 +253,9 @@
 		end
 		backgroundRendered = true;
 		
+	end
+
+	function endLevel() 
+		io.write("end of level\n")
+		paused = not paused
 	end
