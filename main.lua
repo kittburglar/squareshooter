@@ -122,8 +122,9 @@
 				io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
 				if (b:getUserData():sub(6,7) == tostring(v.dir)) then
 					player.health = player.health - 1
+					progressbar:SetValue(player.health, progressbar:GetMax())
 					if (tonumber(player.health) == 0) then
-						a:destroy()
+						endLevel()
 					end
 					if (tonumber(v.hitpoints) == 0) then 
 						io.write("hitpoint is: " .. v.hitpoints .. "\n")
@@ -148,8 +149,9 @@
 
 				if (a:getUserData():sub(6,7) == tostring(v.dir)) then
 					player.health = player.health - 1
+					progressbar:SetValue(player.health, progressbar:GetMax())
 					if (tonumber(player.health) == 0) then
-						b:destroy()
+						endLevel()
 					end
 					if (tonumber(v.hitpoints) == 0) then 
 						io.write("hitpoint is: " .. v.hitpoints .. "\n")
@@ -215,7 +217,7 @@
 		if key == "p" then
 			io.write("pause button pressed\n");
 			paused = not paused
-		else
+		elseif (not paused) then
 			bullet.shoot(key)
 		end
 	end

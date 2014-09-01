@@ -46,8 +46,8 @@ function enemy.draw()
 end
 
 
---function enemy.move(x,y)
---	enemy.b:applyForce(math.max(math.min(player.b:getX() - enemy.b:getX(),100), -100), math.max(math.min(player.b:getY() - enemy.b:getY(),100), -100))
+function enemy.move(x,y)
+	enemy.b:applyForce(math.max(math.min(player.b:getX() - enemy.b:getX(),100), -100), math.max(math.min(player.b:getY() - enemy.b:getY(),100), -100))
     --[[
 	if love.keyboard.isDown('l') then
 			enemy.b:applyForce(1000,0)
@@ -68,11 +68,11 @@ end
 			enemy.b:applyForce(0,-1000)
 		end
 		]]
---end
+end
 
 function enemy.move(x,y)
 	for i,v in ipairs(enemy) do
-			--v.body:applyForce(math.max(math.min(player.b:getX() - v.body:getX(),100), -100), math.max(math.min(player.b:getY() - v.body:getY(),100), -100))
+			v.body:applyForce(math.max(math.min(player.b:getX() - v.body:getX(),100), -100), math.max(math.min(player.b:getY() - v.body:getY(),100), -100))
 		
 		
 	end
