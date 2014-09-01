@@ -11,6 +11,10 @@
 		require("loveframes")
 		xStar = {}    -- new array
 		yStar = {}
+		progressbar = loveframes.Create("progressbar", frame)
+		progressbar2 = loveframes.Create("progressbar", frame)
+		progressbar3 = loveframes.Create("progressbar", frame)
+
 		fillStarArray()
 		backgroundRendered = false;
 		createUIElements()
@@ -31,12 +35,12 @@
 		level1.load()
 	end
 
-	function createUI()
+	function updateUI()
 
 		
 		--love.graphics.setColor(255,255,220)
 		--love.graphics.rectangle("line", 0, love.graphics.getHeight() - 200, love.graphics.getWidth(), 200)
-		
+		progressbar:SetValue(player.health, progressbar:GetMax())
 	end
 
 	function createUIElements()
@@ -47,32 +51,43 @@
 		love.graphics.setColor(0, 255, 0, 255)
     	love.graphics.print("This is a pretty lame example.", 5 + 96 + 5, love.graphics.getHeight() - 200 + 5)
 
-		local progressbar = loveframes.Create("progressbar", frame)
+		
 		progressbar:SetPos(5 + 96 + 5, love.graphics.getHeight() - 200 + 5 + 139 - (3  *25) - 10)
-		progressbar:SetWidth(150)
-		progressbar:SetLerpRate(10)
-		local progressbar = loveframes.Create("progressbar", frame)
-		progressbar:SetPos(5 + 96 + 5, love.graphics.getHeight() - 200 + 5 + 139 - (2 * 25) - 5)
 		progressbar:SetWidth(150)
 		progressbar:SetLerpRate(10)
 
 		
-		local progressbar = loveframes.Create("progressbar", frame)
-		progressbar:SetPos(5 + 96 + 5, love.graphics.getHeight() - 200 + 5 + 139 - 25)
-		progressbar:SetWidth(150)
-		progressbar:SetLerpRate(10)
+
+
+		
+		progressbar2:SetPos(5 + 96 + 5, love.graphics.getHeight() - 200 + 5 + 139 - (2 * 25) - 5)
+		progressbar2:SetWidth(150)
+		progressbar2:SetLerpRate(10)
+		
+		
+		progressbar3:SetPos(5 + 96 + 5, love.graphics.getHeight() - 200 + 5 + 139 - 25)
+		progressbar3:SetWidth(150)
+		progressbar3:SetLerpRate(10)
+
+
 	end
 
 	function beginContact(a, b, coll)
-		--io.write(b:getUserData():sub(0,5));
+		--BULLET AND ENEMY COLLISION
 		if((a:getUserData() == "Bullet") and (b:getUserData():sub(0,5) == "Enemy")) then
 			print("collided")
 			for i,v in ipairs(enemy) do
 				io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
 				if (b:getUserData():sub(6,7) == tostring(v.dir)) then
-					io.write("remove at position: " .. tostring(i) .. "\n")
-					b:destroy()
-					table.remove(enemy, i)
+					if (tonumber(v.hitpoints) == 0) then 
+						io.write("hitpoint is: " .. v.hitpoints .. "\n")
+						io.write("remove at position: " .. tostring(i) .. "\n")
+						b:destroy()
+						table.remove(enemy, i)
+					else
+						print("Removing 1 hitpoint")
+						v.hitpoints = v.hitpoints - 1
+					end
 				end
 			end
 		end
@@ -95,7 +110,46 @@
 				end
 			end
 		end
-		--print('beginning contact')   
+		if((a:getUserData() == "Player") and (b:getUserData():sub(0,5) == "Enemy")) then
+			print("collided")
+			for i,v in ipairs(enemy) do
+				io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
+				if (b:getUserData():sub(6,7) == tostring(v.dir)) then
+					player.health = player.health - 1
+					if (tonumber(v.hitpoints) == 0) then 
+						io.write("hitpoint is: " .. v.hitpoints .. "\n")
+						io.write("remove at position: " .. tostring(i) .. "\n")
+						b:destroy()
+						table.remove(enemy, i)
+					else
+						print("Removing 1 hitpoint")
+						v.hitpoints = v.hitpoints - 1
+					end
+				end
+			end
+		end
+		if((b:getUserData() == "Player") and (a:getUserData():sub(0,5) == "Enemy")) then
+			print("collided2")
+			for i,v in ipairs(enemy) do
+				io.write("a:getUserData():sub(6,7) is: " .. a:getUserData():sub(6,7) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
+				--io.write(a:getUserData())
+
+				if (a:getUserData():sub(6,7) == tostring(v.dir)) then
+					player.health = player.health - 1
+					if (tonumber(v.hitpoints) == 0) then 
+						io.write("hitpoint is: " .. v.hitpoints .. "\n")
+						io.write("remove at position: " .. tostring(i) .. "\n")
+						a:destroy()
+						table.remove(enemy, i)
+					else
+						print("Removing 1 hitpoint")
+						v.hitpoints = v.hitpoints - 1
+					end
+
+				end
+			end
+		end
+
 	end
 
 	function endContact(a, b, coll)
@@ -151,7 +205,7 @@
 		DRAW_ENEMY()
 		bullet.draw()
 		camera:unset()
-		createUI()
+		updateUI()
 		loveframes.draw()
 	
 	end

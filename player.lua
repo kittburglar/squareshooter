@@ -16,10 +16,11 @@ function player.load()
 	player.jump = 30
 	player.inair = false
 	player.jetpack = true
+	player.health = 10
 
 	--collusion
 	--player = {}
-		player.b = love.physics.newBody(world,maxBorderX/2,maxBorderY/2,"dynamic")
+		player.b = love.physics.newBody(world,maxBorderX/2+200,maxBorderY/2+200,"dynamic")
 		--player.b:setMass(10)
 		player.s = love.physics.newRectangleShape(50,50)
 		player.f = love.physics.newFixture(player.b,player.s)
