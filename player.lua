@@ -11,8 +11,8 @@ function player.load()
 	player.yvel = 0
 	player.friction = 7
 	player.speed = 2250
-	player.width = 50
-	player.height = 50
+	player.width = 40
+	player.height = 40
 	player.jump = 30
 	player.inair = false
 	player.jetpack = true
@@ -22,7 +22,7 @@ function player.load()
 	--player = {}
 		player.b = love.physics.newBody(world,maxBorderX/2+200,maxBorderY/2+200,"dynamic")
 		--player.b:setMass(10)
-		player.s = love.physics.newRectangleShape(50,50)
+		player.s = love.physics.newRectangleShape(player.width,player.height)
 		player.f = love.physics.newFixture(player.b,player.s)
 		player.f:setRestitution(0)
 		player.f:setUserData("Player")
@@ -31,7 +31,7 @@ end
 function player.draw()
 	love.graphics.setColor(225,0,0)
 	--love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
-	
+
 	love.graphics.rectangle("fill", player.b:getX()-25,player.b:getY()-25,player.width,player.height)
 
 end

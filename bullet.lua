@@ -2,6 +2,7 @@ bullet_speed = 5000
 bullet = {}
 
 function bullet.spawn(x,y,dir)
+	
 	bullet.b = love.physics.newBody(world,x,y,"dynamic")
 	bullet.b:setMass(100)
 	bullet.b:setGravityScale(0)
@@ -10,7 +11,6 @@ function bullet.spawn(x,y,dir)
 	bullet.f:setRestitution(0)
 	bullet.f:setUserData("Bullet")
 	table.insert(bullet, {width = 10, height = 10,x = bullet.b:getX(), y = bullet.b:getY(), dir = dir, body = bullet.b, shape = bullet.s, fixture = bullet.f})
-	
 end
 
 function bullet.draw()
