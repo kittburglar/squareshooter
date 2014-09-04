@@ -3,20 +3,12 @@ enemy = {}
 
 function enemy.load()
 
-	enemy.x = 5
-	enemy.y = 5
-	enemy.xvel = 0
-	enemy.yvel = 0
-	enemy.friction = 7
+	
 	enemy.speed = 2250
-	enemy.width = 40
-	enemy.height = 40
-	enemy.jump = 30
-	enemy.inair = false
-	enemy.jetpack = true
+	enemy.width = 20
+	enemy.height = 20
 
-	--collusion
-	--enemy = {}	
+	
 end
 
 
@@ -43,7 +35,7 @@ function enemy.draw()
 		--io.write("v.body:getX() is: " .. tostring(v.body:getX()) - player.b:getX()  .. "love.graphics.getWidth() is:" .. love.graphics.getWidth() .. "\n")
 		--if ((v.body:getX() <= player.b:getX() - love.graphics.getWidth()/2) and (v.body:getY() <= player.b:getX() - love.graphics.getHeight()/2)) then
 			love.graphics.setColor(math.random(0,255),math.random(0,255),math.random(0,255))
-			love.graphics.rectangle('fill',v.body:getX()-25,v.body:getY()-25,v.width,v.height)
+			love.graphics.rectangle('fill',v.body:getX()-v.width/2,v.body:getY()-v.width/2,v.width,v.height)
 		--end
 	end
 end
@@ -80,22 +72,9 @@ function enemy.move(x,y)
 end
 
 
-function enemy.boundary()
-	if enemy.x < 0 then
-		enemy.x = 0
-		enemy.xvel = 0
-	end
-	if enemy.y + enemy.height > groundlevel then
-		enemy.y = groundlevel - enemy.height
-		enemy.yvel = 0
-	end
-end
-
 function UPDATE_ENEMY(dt)
 
-	--enemy.spawn()
 	enemy.move(dt)
-	enemy.boundary()
 end
 
 function DRAW_ENEMY()

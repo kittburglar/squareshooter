@@ -5,34 +5,30 @@ player = {}
 
 function player.load()
 
-	player.x = 5
-	player.y = 5
-	player.xvel = 0
-	player.yvel = 0
-	player.friction = 7
-	player.speed = 2250
-	player.width = 40
-	player.height = 40
-	player.jump = 30
-	player.inair = false
-	player.jetpack = true
+	player.x = maxBorderX/2+200
+	player.y = maxBorderY/2+200
+	player.width = 20
+	player.height = 20
 	player.health = 10
+	player.speed = 210
 
 	--collusion
 	--player = {}
-		player.b = love.physics.newBody(world,maxBorderX/2+200,maxBorderY/2+200,"dynamic")
-		--player.b:setMass(10)
-		player.s = love.physics.newRectangleShape(player.width,player.height)
-		player.f = love.physics.newFixture(player.b,player.s)
-		player.f:setRestitution(0)
-		player.f:setUserData("Player")
+	player.b = love.physics.newBody(world,player.x,player.y,"dynamic")
+	player.b:setMass(10)
+	player.b:setGravityScale(0)
+	player.s = love.physics.newRectangleShape(player.width,player.height)
+	player.f = love.physics.newFixture(player.b,player.s)
+	player.f:setRestitution(0)
+	player.f:setUserData("Player")
+
 end
 
 function player.draw()
 	love.graphics.setColor(225,0,0)
 	--love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
 
-	love.graphics.rectangle("fill", player.b:getX()-25,player.b:getY()-25,player.width,player.height)
+	love.graphics.rectangle("fill", player.b:getX()-player.width/2, player.b:getY()-player.height/2,player.width,player.height)
 
 end
 
@@ -71,22 +67,22 @@ function player.move(dt)
 		player.b:setAngle(angle)
 
 		if love.keyboard.isDown('d') then
-			player.b:applyForce(1000,0)
+			player.b:applyForce(player.speed,0)
 		end
 
 		--left
 		if love.keyboard.isDown('a') then
-			player.b:applyForce(-1000,0)
+			player.b:applyForce(-player.speed,0)
 		end
 		
 		--down
 		if love.keyboard.isDown('s') then
-			player.b:applyForce(0,1000)
+			player.b:applyForce(0,player.speed)
 		end
 
 		--up
 		if love.keyboard.isDown('w') then
-			player.b:applyForce(0,-1000)
+			player.b:applyForce(0,-player.speed)
 		end
 end
 

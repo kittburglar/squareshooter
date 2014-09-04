@@ -8,7 +8,7 @@ function level1.load()
 	
 	for i = 0, numberofEnemies do
 
-			enemy.spawn(maxBorderX/2,maxBorderX/2,i,3);
+			enemy.spawn(maxBorderX/2+100,maxBorderX/2+100,i,3);
 	end
 
 end

@@ -4,8 +4,9 @@
 	require "enemy"
 	require "level1"
 	require "conf"
+	require "border"
 
-	bounds = {}
+	bounds1 = {}
 	paused = false
 	function love.load()
 		require("loveframes")
@@ -19,16 +20,13 @@
 		backgroundRendered = false;
 		createUIElements()
 
-			world = love.physics.newWorld(0, 0, 0,0,0,0,false)  --Gravity is being set to 0 in the x direction and 200 in the y direction.
-	        --These callback function names can be almost any you want:
-			world:setCallbacks(beginContact, endContact, preSolve, postSolve)
-	        --Loading Classes
-	        --[[
-	        bounds.b = love.physics.newBody(world, 0,0,"static")
-	        bounds.s = love.physics.newEdgeShape(0,0, 2000, 2000)
-	        bounds.f = love.physics.newFixture(bounds.b,bounds.s)
-			bounds.f:setUserData("Bounds")
-			]]
+		world = love.physics.newWorld(0, 0, 0,0,0,0,false)  --Gravity is being set to 0 in the x direction and 200 in the y direction.
+        --These callback function names can be almost any you want:
+		world:setCallbacks(beginContact, endContact, preSolve, postSolve)
+        
+	        
+			
+		border.load()
 		player.load()
 		enemy.load()
 		--test
@@ -226,6 +224,7 @@
 
 		camera:set()
 		renderBackground()
+		border.draw()
 		DRAW_PLAYER()
 		DRAW_ENEMY()
 		bullet.draw()
@@ -242,6 +241,8 @@
 	      yStar[i] = math.random(0,maxBorderY) 
 	    end
 	end
+
+	
 
 	function renderBackground()
 		
