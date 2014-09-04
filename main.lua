@@ -71,17 +71,28 @@
 	end
 
 	function beginContact(a, b, coll)
+		if(a:getUserData():sub(0,6) == "Bullet") and (b:getUserData() == "Bounds") then
+			--io.write("BulletID is: " .. a:getUserData():sub(7,100) .. "\n")
+			destroyBullet(a:getUserData():sub(7,100)) 
+		end
+		if(b:getUserData():sub(0,6) == "Bullet") and (a:getUserData() == "Bounds") then
+			--io.write("BulletID is: " .. b:getUserData():sub(7,100) .. "\n")
+			
+			destroyBullet(b:getUserData():sub(7,100)) 
+		end
 		--BULLET AND ENEMY COLLISION
 		if((a:getUserData() == "Bullet") and (b:getUserData():sub(0,5) == "Enemy")) then
-			print("collided")
+			print("Bullet collided with enemy")
 			for i,v in ipairs(enemy) do
-				io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
+				--io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
 				if (b:getUserData():sub(6,7) == tostring(v.dir)) then
 					if (tonumber(v.hitpoints) == 0) then 
 						io.write("hitpoint is: " .. v.hitpoints .. "\n")
 						io.write("remove at position: " .. tostring(i) .. "\n")
 						b:destroy()
+						--a:destroy()
 						table.remove(enemy, i)
+
 						if (table.maxn(enemy) == 0) then
 							endLevel()
 						end
@@ -93,15 +104,16 @@
 			end
 		end
 		if((b:getUserData() == "Bullet") and (a:getUserData():sub(0,5) == "Enemy")) then
-			print("collided2")
+			print("Bullet collided with enemy 2")
 			for i,v in ipairs(enemy) do
-				io.write("a:getUserData():sub(6,7) is: " .. a:getUserData():sub(6,7) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
+				--io.write("a:getUserData():sub(6,7) is: " .. a:getUserData():sub(6,7) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
 				--io.write(a:getUserData())
 				if (a:getUserData():sub(6,7) == tostring(v.dir)) then
 					if (tonumber(v.hitpoints) == 0) then 
 						io.write("hitpoint is: " .. v.hitpoints .. "\n")
 						io.write("remove at position: " .. tostring(i) .. "\n")
 						a:destroy()
+						--b:destroy()
 						table.remove(enemy, i)
 						if (table.maxn(enemy) == 0) then
 							endLevel()
@@ -115,9 +127,9 @@
 			end
 		end
 		if((a:getUserData() == "Player") and (b:getUserData():sub(0,5) == "Enemy")) then
-			print("collided")
+			print("Player collided with Enemy")
 			for i,v in ipairs(enemy) do
-				io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
+				--io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
 				if (b:getUserData():sub(6,7) == tostring(v.dir)) then
 					player.health = player.health - 1
 					progressbar:SetValue(player.health, progressbar:GetMax())
@@ -140,9 +152,9 @@
 			end
 		end
 		if((b:getUserData() == "Player") and (a:getUserData():sub(0,5) == "Enemy")) then
-			print("collided2")
+			print("Player collided with Enemy 2")
 			for i,v in ipairs(enemy) do
-				io.write("a:getUserData():sub(6,7) is: " .. a:getUserData():sub(6,7) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
+				--io.write("a:getUserData():sub(6,7) is: " .. a:getUserData():sub(6,7) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
 				--io.write(a:getUserData())
 
 				if (a:getUserData():sub(6,7) == tostring(v.dir)) then
@@ -172,7 +184,7 @@
 
 	function endContact(a, b, coll)
 		
-	    print('end contact')
+	    --print('end contact')
 	    
 	end
 
