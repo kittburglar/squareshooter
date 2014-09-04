@@ -81,11 +81,12 @@
 			destroyBullet(b:getUserData():sub(7,100)) 
 		end
 		--BULLET AND ENEMY COLLISION
-		if((a:getUserData() == "Bullet") and (b:getUserData():sub(0,5) == "Enemy")) then
+		if((a:getUserData():sub(0,6) == "Bullet") and (b:getUserData():sub(0,5) == "Enemy")) then
 			print("Bullet collided with enemy")
 			for i,v in ipairs(enemy) do
-				--io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
-				if (b:getUserData():sub(6,7) == tostring(v.dir)) then
+				io.write("b:getUserData():sub(6,10) is: " .. tostring(b:getUserData():sub(6,10)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
+				if (b:getUserData():sub(6,string.len(b:getUserData())) == tostring(v.dir)) then
+					v.hitpoints = v.hitpoints - 1
 					if (tonumber(v.hitpoints) == 0) then 
 						io.write("hitpoint is: " .. v.hitpoints .. "\n")
 						io.write("remove at position: " .. tostring(i) .. "\n")
@@ -96,31 +97,26 @@
 						if (table.maxn(enemy) == 0) then
 							endLevel()
 						end
-					else
-						print("Removing 1 hitpoint")
-						v.hitpoints = v.hitpoints - 1
 					end
 				end
 			end
 		end
-		if((b:getUserData() == "Bullet") and (a:getUserData():sub(0,5) == "Enemy")) then
+		if((b:getUserData():sub(0,6) == "Bullet") and (a:getUserData():sub(0,5) == "Enemy")) then
 			print("Bullet collided with enemy 2")
 			for i,v in ipairs(enemy) do
-				--io.write("a:getUserData():sub(6,7) is: " .. a:getUserData():sub(6,7) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
+				io.write("a:getUserData():sub(6,10) is: " .. a:getUserData():sub(6,string.len(a:getUserData())) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
 				--io.write(a:getUserData())
-				if (a:getUserData():sub(6,7) == tostring(v.dir)) then
+				if (a:getUserData():sub(6,string.len(a:getUserData())) == tostring(v.dir)) then
+					v.hitpoints = v.hitpoints - 1
 					if (tonumber(v.hitpoints) == 0) then 
 						io.write("hitpoint is: " .. v.hitpoints .. "\n")
 						io.write("remove at position: " .. tostring(i) .. "\n")
 						a:destroy()
-						--b:destroy()
 						table.remove(enemy, i)
 						if (table.maxn(enemy) == 0) then
 							endLevel()
 						end
-					else
-						print("Removing 1 hitpoint")
-						v.hitpoints = v.hitpoints - 1
+						
 					end
 
 				end
@@ -129,9 +125,10 @@
 		if((a:getUserData() == "Player") and (b:getUserData():sub(0,5) == "Enemy")) then
 			print("Player collided with Enemy")
 			for i,v in ipairs(enemy) do
-				--io.write("b:getUserData():sub(6,7) is: " .. tostring(b:getUserData():sub(6,7)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
-				if (b:getUserData():sub(6,7) == tostring(v.dir)) then
+				--io.write("b:getUserData():sub(6,10) is: " .. tostring(b:getUserData():sub(6,10)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
+				if (b:getUserData():sub(6,10) == tostring(v.dir)) then
 					player.health = player.health - 1
+					v.hitpoints = v.hitpoints - 1
 					progressbar:SetValue(player.health, progressbar:GetMax())
 					if (tonumber(player.health) == 0) then
 						endLevel()
@@ -144,9 +141,7 @@
 						if (table.maxn(enemy) == 0) then
 							endLevel()
 						end
-					else
-						print("Removing 1 hitpoint")
-						v.hitpoints = v.hitpoints - 1
+						
 					end
 				end
 			end
@@ -154,11 +149,12 @@
 		if((b:getUserData() == "Player") and (a:getUserData():sub(0,5) == "Enemy")) then
 			print("Player collided with Enemy 2")
 			for i,v in ipairs(enemy) do
-				--io.write("a:getUserData():sub(6,7) is: " .. a:getUserData():sub(6,7) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
+				--io.write("a:getUserData():sub(6,10) is: " .. a:getUserData():sub(6,10) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
 				--io.write(a:getUserData())
 
-				if (a:getUserData():sub(6,7) == tostring(v.dir)) then
+				if (a:getUserData():sub(6,10) == tostring(v.dir)) then
 					player.health = player.health - 1
+					v.hitpoints = v.hitpoints - 1
 					progressbar:SetValue(player.health, progressbar:GetMax())
 					if (tonumber(player.health) == 0) then
 						endLevel()
@@ -171,9 +167,7 @@
 						if (table.maxn(enemy) == 0) then
 							endLevel()
 						end
-					else
-						print("Removing 1 hitpoint")
-						v.hitpoints = v.hitpoints - 1
+						
 					end
 
 				end
@@ -233,15 +227,15 @@
 	end
 
 	function love.draw()
-
+        
 		camera:set()
-		renderBackground()
+		--renderBackground()
 		border.draw()
 		DRAW_PLAYER()
 		DRAW_ENEMY()
 		bullet.draw()
 		camera:unset()
-		updateUI()
+		--updateUI()
 		loveframes.draw()
 	
 	end

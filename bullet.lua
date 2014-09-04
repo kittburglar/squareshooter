@@ -46,6 +46,7 @@ end
 		for i,v in ipairs(bullet) do
 			io.write("id is: " .. id .. " v.bulletID is: " .. v.bulletID .. "\n")
 			if id == v.bulletID then
+				v.body:destroy()
 				table.remove(bullet, i)
 			end
 		end

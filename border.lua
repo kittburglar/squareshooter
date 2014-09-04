@@ -8,6 +8,7 @@ function border.load()
 	border.spawn(maxBorderX/2, maxBorderY/2 + size, size, 10)	
 	border.spawn(maxBorderX/2 - size/2, maxBorderY/2 + size/2, 10, size)
 	border.spawn(maxBorderX/2 + size/2, maxBorderY/2 + size/2, 10, size)	
+	border.draw()
 	
 end
 

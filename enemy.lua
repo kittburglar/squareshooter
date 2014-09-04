@@ -34,7 +34,8 @@ function enemy.draw()
 	for i,v in ipairs(enemy) do
 		--io.write("v.body:getX() is: " .. tostring(v.body:getX()) - player.b:getX()  .. "love.graphics.getWidth() is:" .. love.graphics.getWidth() .. "\n")
 		--if ((v.body:getX() <= player.b:getX() - love.graphics.getWidth()/2) and (v.body:getY() <= player.b:getX() - love.graphics.getHeight()/2)) then
-			love.graphics.setColor(math.random(0,255),math.random(0,255),math.random(0,255))
+			--love.graphics.setColor(math.random(0,255),math.random(0,255),math.random(0,255))
+			love.graphics.setColor(0,0,255)
 			love.graphics.rectangle('fill',v.body:getX()-v.width/2,v.body:getY()-v.width/2,v.width,v.height)
 		--end
 	end
