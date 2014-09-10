@@ -25,7 +25,7 @@ function enemy.spawn(x,y,dir,hp)
 end
 --[[
 function enemy.draw()
-	love.graphics.setColor(0,0,255)
+	love.graphics.setColor(0,255,255)
 	--love.graphics.rectangle("fill", enemy.x, enemy.y, enemy.width, enemy.height)
 	love.graphics.rectangle("fill", enemy.b:getX()-25,enemy.b:getY()-25,enemy.width,enemy.height)
 end
