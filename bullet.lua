@@ -20,13 +20,19 @@ function bullet.draw()
 	for i,v in ipairs(bullet) do
 		love.graphics.setColor(0,255,0)
 		love.graphics.rectangle('fill',v.body:getX()-5,v.body:getY()-5,v.width,v.height)
+
 	end
 end
+
+
 
 function bullet.update(dt)
 	for i,v in ipairs(bullet) do
 		if v.dir == 'up' then
-			v.body:applyForce(0, -1000)
+			--v.body:applyForce(0, -1000)
+			local thrust_fx = math.sin(player.b:getAngle()) *  1000
+        	local thrust_fy = -math.cos(player.b:getAngle()) *  1000
+        	v.body:applyForce (-thrust_fx, -thrust_fy)
 		end
 		if v.dir == 'right' then
 			v.body:applyForce(1000, 0)
@@ -113,8 +119,32 @@ end
 	]]
 	
 	if (key == "up") then
+		bulletX = player.b:getX()
+		bulletY = player.b:getY()
+
 		print("up");
-		bullet.spawn(player.b:getX(), player.b:getY() - player.height/2,'up');
+		print(tostring(player.b:getAngle()));
+		--translate to origin
+		bulletX = bulletX - player.b:getX()
+		bulletY = bulletY - player.b:getY()
+
+		--rotate
+		bulletX = bulletX * math.cos(player.b:getAngle()) - bulletY * math.sin(player.b:getAngle())
+		bulletY = bulletY * math.cos(player.b:getAngle()) + bulletX * math.sin(player.b:getAngle())
+
+		--translate back
+		bulletX = bulletX + player.b:getX()
+		bulletY = bulletY + player.b:getY()
+
+		local thrust_fx = -math.sin(player.b:getAngle()) *  10
+        local thrust_fy = math.cos(player.b:getAngle()) *  10
+
+       	bulletX = bulletX + thrust_fx
+       	bulletY = bulletY + thrust_fy
+
+
+		bullet.spawn(bulletX, bulletY,'up');
+		--bullet.spawn2();
 	elseif (key == "right") then
 		print("right");
 		bullet.spawn(player.b:getX() + player.width/2,player.b:getY(),'right');
