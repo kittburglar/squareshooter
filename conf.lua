@@ -6,6 +6,6 @@ gravity = 900
 
 function love.conf(t)
 	t.title = "Platformer"
-	t.screen.width = 1200
-	t.screen.height = 750
+	--t.window.width = 1024
+	--t.window.height = 768
 end

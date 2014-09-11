@@ -12,9 +12,7 @@
 		require("loveframes")
 		xStar = {}    -- new array
 		yStar = {}
-		progressbar = loveframes.Create("progressbar", frame)
-		progressbar2 = loveframes.Create("progressbar", frame)
-		progressbar3 = loveframes.Create("progressbar", frame)
+		
 
 		fillStarArray()
 		backgroundRendered = false;
@@ -42,6 +40,9 @@
 	end
 
 	function createUIElements()
+		progressbar = loveframes.Create("progressbar", frame)
+		progressbar2 = loveframes.Create("progressbar", frame)
+		progressbar3 = loveframes.Create("progressbar", frame)
 		local image = loveframes.Create("image", frame)
 		image:SetImage("resources/images/kitty.jpg")
 		image:SetPos(5, love.graphics.getHeight() - 200 + 5)
@@ -82,6 +83,7 @@
 		end
 		--BULLET AND ENEMY COLLISION
 		if((a:getUserData():sub(0,6) == "Bullet") and (b:getUserData():sub(0,5) == "Enemy")) then
+			destroyBullet(a:getUserData():sub(7,100)) 
 			print("Bullet collided with enemy")
 			for i,v in ipairs(enemy) do
 				io.write("b:getUserData():sub(6,10) is: " .. tostring(b:getUserData():sub(6,10)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
@@ -103,6 +105,7 @@
 		end
 		if((b:getUserData():sub(0,6) == "Bullet") and (a:getUserData():sub(0,5) == "Enemy")) then
 			print("Bullet collided with enemy 2")
+			destroyBullet(b:getUserData():sub(7,100)) 
 			for i,v in ipairs(enemy) do
 				io.write("a:getUserData():sub(6,10) is: " .. a:getUserData():sub(6,string.len(a:getUserData())) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
 				--io.write(a:getUserData())
@@ -191,15 +194,15 @@
 	end
 
 	function love.mousepressed(x, y, button)
-		--[[]
+		
 		if button  == "l" then
 	  		dy = (player.b:getY() + player.height/2) - (y + camera.y)
 	  		dx = (player.b:getX() + player.width/2) - (x + camera.x)
 	  		angle = math.atan2(dy,dx) + math.pi
-	  		bullet.shoot(angle)
+	  		bullet.shoot2(angle)
 	  		print(math.deg(angle))
 		end
-		]]
+		
 	end
 
 	function love.update(dt)
@@ -208,13 +211,15 @@
 		UPDATE_PLAYER(dt)
 		UPDATE_ENEMY(dt)
 		bullet.update(dt)
-		if player.b:getX() > love.graphics.getWidth() / 2 then
-			camera.x = player.b:getX() - love.graphics.getWidth() / 2
-		end
-		if player.b:getY() > love.graphics.getWidth() / 2 then
-			camera.y = player.b:getY() - (love.graphics.getHeight() - 50) / 2
-		end
-		loveframes.update(dt)
+		--if player.b:getX() > love.graphics.getWidth() / 2 then
+			--camera.x = player.b:getX() - love.graphics.getWidth() / 2
+			camera.x = maxBorderX/2 - love.graphics.getWidth() /2
+		--end
+		--if player.b:getY() > love.graphics.getWidth() / 2 then
+			--camera.y = player.b:getY() - (love.graphics.getHeight() - 50) / 2
+			camera.y = maxBorderY/2 - love.graphics.getHeight() /2
+		--end
+		--loveframes.update(dt)
 	end
 
 	function love.keypressed(key)
@@ -235,8 +240,8 @@
 		DRAW_ENEMY()
 		bullet.draw()
 		camera:unset()
-		--updateUI()
-		loveframes.draw()
+		updateUI()
+		--loveframes.draw()
 	
 	end
 

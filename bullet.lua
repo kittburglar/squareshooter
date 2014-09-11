@@ -40,60 +40,90 @@ function bullet.update(dt)
 	end
 end
  
-	function destroyBullet(id) 
+function destroyBullet(id) 
 
-		io.write("destorying bullet" .. id .. "\n");
-		for i,v in ipairs(bullet) do
-			io.write("id is: " .. id .. " v.bulletID is: " .. v.bulletID .. "\n")
-			if id == v.bulletID then
-				v.body:destroy()
-				table.remove(bullet, i)
-			end
+	io.write("destorying bullet" .. id .. "\n");
+	for i,v in ipairs(bullet) do
+		io.write("id is: " .. id .. " v.bulletID is: " .. v.bulletID .. "\n")
+		if id == v.bulletID then
+			v.body:destroy()
+			table.remove(bullet, i)
 		end
 	end
+end
 
 
-
-		function bullet.shoot(key)
-		--[[
-		if (((math.deg(angle) > 45) and (math.deg(angle) < 135))) then
-			--print("down")
-			--print(angle)
-			bullet.spawn(player.b:getX() + player.width/2 , player.b:getY() + player.height,'l', angle)	
-		
-		elseif (((math.deg(angle) > 135) and (math.deg(angle) < 225))) then
-			print("left")
-			print(angle)
-			bullet.spawn(player.b:getX(), player.b:getY() + player.height/2,'l', angle)	
+function bullet.shoot2(key)
+	if (((math.deg(angle) > 45) and (math.deg(angle) < 135))) then
+		print("down")
+		print(angle)
+		bullet.spawn(player.b:getX(),player.b:getY() + player.height/2,'down_mouse');
 	
+	elseif (((math.deg(angle) > 135) and (math.deg(angle) < 225))) then
+		print("left")
+		print(angle)
+		bullet.spawn(player.b:getX() - player.width/2, player.b:getY(),'left_mouse');
 
-		elseif (((math.deg(angle) > 225) and (math.deg(angle) < 315))) then
-			print("up")
-			print(angle)
-			bullet.spawn(player.b:getX() + player.width/2, player.b:getY(),'l', angle)	
 
-		elseif (((math.deg(angle) > 0) and (math.deg(angle) < 45))) then
-			print("right")
-			print(angle)
-			bullet.spawn(player.b:getX() + player.width, player.b:getY() + player.height/2 + (math.deg(angle))/1.8,'l', angle)	
-		
-		elseif (((math.deg(angle) > 315) and (math.deg(angle) < 360))) then
-			print("right")
-			print(angle)
-			bullet.spawn(player.b:getX() + player.width, player.b:getY() + player.height/2 + (math.deg(angle))/1.8,'l', angle)	
-		end
-		]]
-		if (key == "up") then
-			print("up");
-			bullet.spawn(player.b:getX(), player.b:getY() - player.height/2,'up');
-			elseif (key == "right") then
-				print("right");
-				bullet.spawn(player.b:getX() + player.width/2,player.b:getY(),'right');
-				elseif (key == "down") then
-					print("down");
-					bullet.spawn(player.b:getX(),player.b:getY() + player.height/2,'down');
-					elseif (key == "left") then
-						print("left");	
-						bullet.spawn(player.b:getX() - player.width/2, player.b:getY(),'left');
-					end
-				end
+	elseif (((math.deg(angle) > 225) and (math.deg(angle) < 315))) then
+		print("up")
+		print(angle)
+		bullet.spawn(player.b:getX(), player.b:getY() - player.height/2,'up_mouse');	
+
+	elseif (((math.deg(angle) > 0) and (math.deg(angle) < 45))) then
+		print("right")
+		print(angle)
+		bullet.spawn(player.b:getX() + player.width/2,player.b:getY(),'right_mouse');
+	
+	elseif (((math.deg(angle) > 315) and (math.deg(angle) < 360))) then
+		print("right")
+		print(angle)
+		bullet.spawn(player.b:getX() + player.width/2,player.b:getY(),'right_mouse');	
+	end
+end
+
+	function bullet.shoot(key)
+	--[[
+	if (((math.deg(angle) > 45) and (math.deg(angle) < 135))) then
+		--print("down")
+		--print(angle)
+		bullet.spawn(player.b:getX() + player.width/2 , player.b:getY() + player.height,'l', angle)	
+	
+	elseif (((math.deg(angle) > 135) and (math.deg(angle) < 225))) then
+		print("left")
+		print(angle)
+		bullet.spawn(player.b:getX(), player.b:getY() + player.height/2,'l', angle)	
+
+
+	elseif (((math.deg(angle) > 225) and (math.deg(angle) < 315))) then
+		print("up")
+		print(angle)
+		bullet.spawn(player.b:getX() + player.width/2, player.b:getY(),'l', angle)	
+
+	elseif (((math.deg(angle) > 0) and (math.deg(angle) < 45))) then
+		print("right")
+		print(angle)
+		bullet.spawn(player.b:getX() + player.width, player.b:getY() + player.height/2 + (math.deg(angle))/1.8,'l', angle)	
+	
+	elseif (((math.deg(angle) > 315) and (math.deg(angle) < 360))) then
+		print("right")
+		print(angle)
+		bullet.spawn(player.b:getX() + player.width, player.b:getY() + player.height/2 + (math.deg(angle))/1.8,'l', angle)	
+	end
+	]]
+	
+	if (key == "up") then
+		print("up");
+		bullet.spawn(player.b:getX(), player.b:getY() - player.height/2,'up');
+	elseif (key == "right") then
+		print("right");
+		bullet.spawn(player.b:getX() + player.width/2,player.b:getY(),'right');
+	elseif (key == "down") then
+		print("down");
+		bullet.spawn(player.b:getX(),player.b:getY() + player.height/2,'down');
+	elseif (key == "left") then
+		print("left");	
+		bullet.spawn(player.b:getX() - player.width/2, player.b:getY(),'left');
+	end
+	
+end

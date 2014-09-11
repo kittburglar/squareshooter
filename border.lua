@@ -1,13 +1,15 @@
 require "conf"
 
 border = {}
-size = 700
-
+borderSizeVert = love.graphics.getHeight()
+borderSizeHori = love.graphics.getWidth()
 function border.load()
-	border.spawn(maxBorderX/2, maxBorderY/2, size, 10)
-	border.spawn(maxBorderX/2, maxBorderY/2 + size, size, 10)	
-	border.spawn(maxBorderX/2 - size/2, maxBorderY/2 + size/2, 10, size)
-	border.spawn(maxBorderX/2 + size/2, maxBorderY/2 + size/2, 10, size)	
+	--Hori Lines
+	border.spawn(maxBorderX/2, maxBorderY/2 - borderSizeVert/2, borderSizeHori, 10)
+	border.spawn(maxBorderX/2, maxBorderY/2 + borderSizeVert/2, borderSizeHori, 10)	
+	--Vert
+	border.spawn(maxBorderX/2 - borderSizeHori/2, maxBorderY/2, 10, borderSizeVert)
+	border.spawn(maxBorderX/2 + borderSizeHori/2, maxBorderY/2, 10, borderSizeVert)	
 	border.draw()
 	
 end

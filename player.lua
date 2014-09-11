@@ -5,12 +5,12 @@ player = {}
 
 function player.load()
 
-	player.x = maxBorderX/2+200
-	player.y = maxBorderY/2+200
+	player.x = maxBorderX/2- 200
+	player.y = maxBorderY/2 - 200
 	player.width = 20
 	player.height = 20
 	player.health = 10
-	player.speed = 210
+	player.speed = 200
 
 	--collusion
 	--player = {}
