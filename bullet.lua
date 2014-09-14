@@ -136,8 +136,8 @@ end
 		bulletX = bulletX + player.b:getX()
 		bulletY = bulletY + player.b:getY()
 
-		local thrust_fx = -math.sin(player.b:getAngle()) *  10
-        local thrust_fy = math.cos(player.b:getAngle()) *  10
+		local thrust_fx = -math.sin(player.b:getAngle()) *  30
+        local thrust_fy = math.cos(player.b:getAngle()) *  30
 
        	bulletX = bulletX + thrust_fx
        	bulletY = bulletY + thrust_fy

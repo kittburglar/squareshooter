@@ -1,14 +1,16 @@
 require "enemy"
+
+
 level1 = {}
+i = 0
 numberofEnemies = 100
 
 function level1.load()
 
-	
-	
-	for i = 0, numberofEnemies do
-			
-			enemy.spawn(maxBorderX/2+100,maxBorderX/2+100,i,1);
-	end
-
+	spawn = cron.every(0.5, function() 
+		if i < numberofEnemies then
+			enemy.spawn(math.random(maxBorderX/2,maxBorderX/2+100),math.random(maxBorderX/2,maxBorderX/2+100),i,1) 
+			i = i + 1
+		end
+	end)
 end
