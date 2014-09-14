@@ -18,6 +18,7 @@ function player.load()
 	player.b:setMass(10)
 	player.b:setGravityScale(0)
 	player.s = love.physics.newRectangleShape(player.width,player.height)
+	
 	player.f = love.physics.newFixture(player.b,player.s)
 	player.f:setRestitution(0)
 	player.f:setUserData("Player")
@@ -40,31 +41,7 @@ end
 
 
 function player.move(dt)
-		--[[
-		--right
-		if love.keyboard.isDown('d') and
-			player.b:xvel < player.speed then
-				player.xvel = player.xvel + player.speed * dt
-		end
-
-		--left
-		if love.keyboard.isDown('a') and
-			player.xvel > -player.speed then
-			player.xvel = player.xvel - player.speed * dt
-		end
 		
-		--down
-		if love.keyboard.isDown('s') and
-			player.yvel > -player.speed then
-			player.yvel = player.yvel + player.speed * dt
-		end
-
-		--up
-		if love.keyboard.isDown('w') and
-			player.yvel < player.speed then
-			player.yvel = player.yvel - player.speed * dt
-		end
-		]]
 		dy = (player.b:getY() + player.height/2) - love.mouse.getY()
   		dx = (player.b:getX() + player.width/2) - love.mouse.getX()
   		--angle = math.atan2(dy,dx) + math.pi
@@ -95,10 +72,12 @@ function player.move(dt)
         	local thrust_fy = math.cos(player.b:getAngle()) *  player.speed
         	player.b:applyForce (thrust_fx, thrust_fy)
 		end
-
-		if love.keyboard.isDown('f') then
-			player.b:applyForce()
+		if player.b:getAngularVelocity() > 0 then
+			player.b:setAngularVelocity(player.b:getAngularVelocity() - 0.03)
+		elseif player.b:getAngularVelocity() < 0 then
+			player.b:setAngularVelocity(player.b:getAngularVelocity() + 0.03)
 		end
+
 end
 
 function player.boundary()
