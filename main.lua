@@ -5,6 +5,7 @@ require "enemy"
 require "level1"
 require "conf"
 require "border"
+require "interface"
 cron = require 'cron'
 bounds1 = {}
 paused = false
@@ -20,7 +21,7 @@ function love.load()
 
 	fillStarArray()
 	backgroundRendered = false;
-	createUIElements()
+	interface.createUserInterface()
 
 	world = love.physics.newWorld(0, 0, 0,0,0,0,false)  --Gravity is being set to 0 in the x direction and 200 in the y direction.
     --These callback function names can be almost any you want:
@@ -35,45 +36,8 @@ function love.load()
 	level1.load()
 end
 
-function updateUI()
-
-	
-	--love.graphics.setColor(255,255,220)
-	--love.graphics.rectangle("line", 0, love.graphics.getHeight() - 200, love.graphics.getWidth(), 200)
-	progressbar:SetValue(player.health, progressbar:GetMax())
-end
-
-function createUIElements()
-	progressbar = loveframes.Create("progressbar", frame)
-	progressbar2 = loveframes.Create("progressbar", frame)
-	progressbar3 = loveframes.Create("progressbar", frame)
-	local image = loveframes.Create("image", frame)
-	image:SetImage("resources/images/kitty.jpg")
-	image:SetPos(5, love.graphics.getHeight() - 200 + 5)
-
-	love.graphics.setColor(0, 255, 0, 255)
-	love.graphics.print("This is a pretty lame example.", 5 + 96 + 5, love.graphics.getHeight() - 200 + 5)
-
-	
-	progressbar:SetPos(5 + 96 + 5, love.graphics.getHeight() - 200 + 5 + 139 - (3  *25) - 10)
-	progressbar:SetWidth(150)
-	progressbar:SetLerpRate(10)
-
-	
 
 
-	
-	progressbar2:SetPos(5 + 96 + 5, love.graphics.getHeight() - 200 + 5 + 139 - (2 * 25) - 5)
-	progressbar2:SetWidth(150)
-	progressbar2:SetLerpRate(10)
-	
-	
-	progressbar3:SetPos(5 + 96 + 5, love.graphics.getHeight() - 200 + 5 + 139 - 25)
-	progressbar3:SetWidth(150)
-	progressbar3:SetLerpRate(10)
-
-
-end
 
 function beginContact(a, b, coll)
 	if(a:getUserData():sub(0,6) == "Bullet") and (b:getUserData() == "Bounds") then
@@ -99,7 +63,7 @@ function beginContact(a, b, coll)
 					b:destroy()
 					--a:destroy()
 					table.remove(enemy, i)
-
+					player.upscore(50)
 					if (table.maxn(enemy) == 0) then
 						endLevel()
 					end
@@ -120,6 +84,7 @@ function beginContact(a, b, coll)
 					io.write("remove at position: " .. tostring(i) .. "\n")
 					a:destroy()
 					table.remove(enemy, i)
+					player.upscore(50)
 					if (table.maxn(enemy) == 0) then
 						endLevel()
 					end
@@ -243,13 +208,15 @@ function love.draw()
 
 	camera:set()
 	--renderBackground()
+
 	border.draw()
 	DRAW_PLAYER()
 	DRAW_ENEMY()
 	bullet.draw()
 	camera:unset()
-	updateUI()
-	--loveframes.draw()
+	interface.level()
+	interface.update()
+	
 
 end
 

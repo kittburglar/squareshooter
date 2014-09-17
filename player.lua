@@ -11,7 +11,7 @@ function player.load()
 	player.height = 32
 	player.health = 10
 	player.speed = 200
-
+	player.score = 0
 	--collusion
 	--player = {}
 	player.b = love.physics.newBody(world,player.x,player.y,"dynamic")
@@ -98,4 +98,9 @@ end
 
 function DRAW_PLAYER()
 	player.draw()
+end
+
+
+function player.upscore(x)
+	player.score = player.score + x
 end
