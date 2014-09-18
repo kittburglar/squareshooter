@@ -54,7 +54,7 @@ function beginContact(a, b, coll)
 		destroyBullet(a:getUserData():sub(7,100)) 
 		print("Bullet collided with enemy")
 		for i,v in ipairs(enemy) do
-			io.write("b:getUserData():sub(6,10) is: " .. tostring(b:getUserData():sub(6,10)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
+			--io.write("b:getUserData():sub(6,10) is: " .. tostring(b:getUserData():sub(6,10)) .. " and v.dir is: " .. tostring(v.dir) .. "\n")
 			if (b:getUserData():sub(6,string.len(b:getUserData())) == tostring(v.dir)) then
 				v.hitpoints = v.hitpoints - 1
 				if (tonumber(v.hitpoints) == 0) then 
@@ -75,7 +75,7 @@ function beginContact(a, b, coll)
 		print("Bullet collided with enemy 2")
 		destroyBullet(b:getUserData():sub(7,100)) 
 		for i,v in ipairs(enemy) do
-			io.write("a:getUserData():sub(6,10) is: " .. a:getUserData():sub(6,string.len(a:getUserData())) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
+			--io.write("a:getUserData():sub(6,10) is: " .. a:getUserData():sub(6,string.len(a:getUserData())) .. " and v.dir is: " .. tostring(v.dir) .. "\n" )
 			--io.write(a:getUserData())
 			if (a:getUserData():sub(6,string.len(a:getUserData())) == tostring(v.dir)) then
 				v.hitpoints = v.hitpoints - 1

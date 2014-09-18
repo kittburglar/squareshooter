@@ -1,10 +1,10 @@
-bullet_speed = 5000
+bullet_speed = 2000
 bullet = {}
 ID = 0;
 function bullet.spawn(x,y,dir)
 	
 	bullet.b = love.physics.newBody(world,x,y,"dynamic")
-	bullet.b:setMass(100)
+	bullet.b:setInertia(1000)
 	bullet.b:setGravityScale(0)
 	bullet.s = love.physics.newRectangleShape(10,10)
 	bullet.f = love.physics.newFixture(bullet.b,bullet.s)
@@ -18,7 +18,7 @@ function bullet.spawn(x,y,dir)
 
 function bullet.draw()
 	for i,v in ipairs(bullet) do
-		love.graphics.setColor(0,255,0)
+		love.graphics.setColor(15,240,0)
 		love.graphics.rectangle('fill',v.body:getX()-5,v.body:getY()-5,v.width,v.height)
 
 	end
@@ -30,8 +30,8 @@ function bullet.update(dt)
 	for i,v in ipairs(bullet) do
 		if v.dir == 'up' then
 			--v.body:applyForce(0, -1000)
-			local thrust_fx = math.sin(player.b:getAngle()) *  1000
-        	local thrust_fy = -math.cos(player.b:getAngle()) *  1000
+			local thrust_fx = math.sin(player.b:getAngle()) *  bullet_speed
+        	local thrust_fy = -math.cos(player.b:getAngle()) *  bullet_speed
         	v.body:applyForce (-thrust_fx, -thrust_fy)
 		end
 		if v.dir == 'right' then

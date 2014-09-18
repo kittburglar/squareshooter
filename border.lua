@@ -24,7 +24,7 @@ end
 
 function border.draw()
 	for i,v in ipairs(border) do
-		love.graphics.setColor(255,255,255)
+		love.graphics.setColor(234,234,234)
 		love.graphics.rectangle("fill", v.body:getX() - v.borderWidth/2, v.body:getY() - v.borderHeight/2, v.borderWidth, v.borderHeight)
 	end
 end

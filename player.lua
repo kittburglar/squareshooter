@@ -42,10 +42,7 @@ end
 
 function player.move(dt)
 		
-		dy = (player.b:getY() + player.height/2) - love.mouse.getY()
-  		dx = (player.b:getX() + player.width/2) - love.mouse.getX()
-  		--angle = math.atan2(dy,dx) + math.pi
-		--player.b:setAngle(angle)
+		
 
 		if love.keyboard.isDown('d') then
 			player.b:setAngle(player.b:getAngle() + 0.1)

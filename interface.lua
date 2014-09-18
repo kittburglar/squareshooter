@@ -32,14 +32,14 @@ function interface.createUserInterface()
 end
 
 function interface.level()
-	print("interface load")
-	love.graphics.setColor(255,255,255)
+	--print("interface load")
+	love.graphics.setColor(234,234,234)
 	love.graphics.setFont(font)
 	love.graphics.printf("Score:" .. player.score, 0, 20, love.graphics.getWidth(), 'center')
 end
 
 function interface.update()
-	print("updateUI");
+	--print("updateUI");
 
 	--loveframes.draw()
 	--love.graphics.setColor(255,255,220)
