@@ -1,24 +1,24 @@
 bullet_speed = 2000
 bullet = {}
 ID = 0;
-function bullet.spawn(x,y,dir)
+function bullet.spawn(x,y,dir,size)
 	
 	bullet.b = love.physics.newBody(world,x,y,"dynamic")
 	bullet.b:setInertia(1000)
 	bullet.b:setGravityScale(0)
-	bullet.s = love.physics.newRectangleShape(10,10)
+	bullet.s = love.physics.newRectangleShape(size,size)
 	bullet.f = love.physics.newFixture(bullet.b,bullet.s)
 	bullet.f:setRestitution(0)
 	bullet.f:setUserData("Bullet" .. tostring(ID))
 	io.write("BulletID is: " .. tostring(ID) .. "\n");
 
-	table.insert(bullet, {bulletID = tostring(ID); hitwall = false, width = 10, height = 10,x = bullet.b:getX(), y = bullet.b:getY(), dir = dir, body = bullet.b, shape = bullet.s, fixture = bullet.f})
+	table.insert(bullet, {bulletID = tostring(ID); hitwall = false, width = size, height = size,x = bullet.b:getX(), y = bullet.b:getY(), dir = dir, body = bullet.b, shape = bullet.s, fixture = bullet.f})
 	ID = ID + 1;
 	end
 
 function bullet.draw()
 	for i,v in ipairs(bullet) do
-		love.graphics.setColor(15,240,0)
+		love.graphics.setColor(0,255,0)
 		love.graphics.rectangle('fill',v.body:getX()-5,v.body:getY()-5,v.width,v.height)
 
 	end
@@ -143,7 +143,7 @@ end
        	bulletY = bulletY + thrust_fy
 
 
-		bullet.spawn(bulletX, bulletY,'up');
+		bullet.spawn(bulletX, bulletY,'up',8);
 		--bullet.spawn2();
 	elseif (key == "right") then
 		print("right");

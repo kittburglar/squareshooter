@@ -29,21 +29,14 @@ function player.load()
 end
 
 function player.draw()
-	--love.graphics.setColor(225,0,0)
-	--love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
-
-	--love.graphics.rectangle("fill", player.b:getX()-player.width/2, player.b:getY()-player.height/2,player.width,player.height)
+	--love.graphics.rectangle('fill',player.b:getX()-player.width/2,player.b:getY()-player.width/2,player.width,player.height)
 	love.graphics.draw(player.image, player.b:getX(), player.b:getY(), player.b:getAngle(), 1, 1, player.width/2, player.height/2)
-
 end
 
 
 
 
 function player.move(dt)
-		
-		
-
 		if love.keyboard.isDown('d') then
 			player.b:setAngle(player.b:getAngle() + 0.1)
 			
@@ -64,6 +57,7 @@ function player.move(dt)
 
 		--up
 		if love.keyboard.isDown('w') then
+			
 			--player.b:applyForce(0,-player.speed)
 			local thrust_fx = -math.sin(player.b:getAngle()) *  player.speed
         	local thrust_fy = math.cos(player.b:getAngle()) *  player.speed
@@ -86,8 +80,37 @@ function player.boundary()
 	end
 end
 
+function player.super()
+--SHOOT
+        	bulletX = player.b:getX()
+			bulletY = player.b:getY()
+
+			print(tostring(player.b:getAngle()));
+			--translate to origin
+			bulletX = bulletX - player.b:getX()
+			bulletY = bulletY - player.b:getY()
+
+			--rotate
+			bulletX = bulletX * math.cos(player.b:getAngle()) - bulletY * math.sin(player.b:getAngle())
+			bulletY = bulletY * math.cos(player.b:getAngle()) + bulletX * math.sin(player.b:getAngle())
+
+			--translate back
+			bulletX = bulletX + player.b:getX()
+			bulletY = bulletY + player.b:getY()
+
+			local thrust_fx = -math.sin(player.b:getAngle()) *  30
+	        local thrust_fy = math.cos(player.b:getAngle()) *  30
+
+	       	bulletX = bulletX + thrust_fx
+	       	bulletY = bulletY + thrust_fy
+
+
+			bullet.spawn(bulletX, bulletY,'up');	
+end
+
 function UPDATE_PLAYER(dt)
-	--player.physics(dt)
+	
+	--player.super()
     enemy.move();
 	player.move(player.b:getX(),player.b:getY())
 	player.boundary()

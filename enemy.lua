@@ -4,7 +4,7 @@ enemy = {}
 function enemy.load()
 
 	
-	enemy.speed = 200
+	enemy.speed = 50
 	enemy.width = 32
 	enemy.height = 32
 
@@ -40,13 +40,7 @@ function enemy.spawn(x,y,dir,hp)
 
 	
 end
---[[
-function enemy.draw()
-	love.graphics.setColor(0,255,255)
-	--love.graphics.rectangle("fill", enemy.x, enemy.y, enemy.width, enemy.height)
-	love.graphics.rectangle("fill", enemy.b:getX()-25,enemy.b:getY()-25,enemy.width,enemy.height)
-end
-]]
+
 function enemy.draw()
 	for i,v in ipairs(enemy) do
 		--io.write("v.body:getX() is: " .. tostring(v.body:getX()) - player.b:getX()  .. "love.graphics.getWidth() is:" .. love.graphics.getWidth() .. "\n")
@@ -78,6 +72,7 @@ function enemy.move(x,y)
 		print("newAngle2 is" .. tostring(newAngle2) .. " prevAngle is " .. tostring(v.prevAngle))
 		--v.body:applyForce(math.max(math.min(player.b:getX() - v.body:getX(),50), -50), math.max(math.min(player.b:getY() - v.body:getY(),50), -50))
 		print(tostring(angle2) ..  " vs " .. tostring(math.deg(v.body:getAngle())))
+
 		if round(newAngle2,-1) == 90 and round(v.prevAngle,-1) == -270 then
 			--print("BAM")
 			v.body:setAngle(math.rad(90))
@@ -95,6 +90,9 @@ function enemy.move(x,y)
 			local thrust_fx = -math.sin(v.body:getAngle()) *  enemy.speed
         	local thrust_fy = math.cos(v.body:getAngle()) *  enemy.speed
         	v.body:applyForce (thrust_fx, thrust_fy)
+
+        	--SHOOT
+        	
 		end
 		v.prevAngle = newAngle2
 	end
