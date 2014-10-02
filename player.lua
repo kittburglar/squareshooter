@@ -105,7 +105,7 @@ function player.super()
 	       	bulletY = bulletY + thrust_fy
 
 
-			bullet.spawn(bulletX, bulletY,'up');	
+			bullet.spawn(bulletX, bulletY,'up', 5);	
 end
 
 function UPDATE_PLAYER(dt)

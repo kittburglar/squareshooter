@@ -1,7 +1,7 @@
 require "conf"
 
 animation = {}
-
+numberofColours = 11
 function pickNeon(number)
 	if number == 0 then
 		love.graphics.setColor(255,0,0)
@@ -28,24 +28,37 @@ function pickNeon(number)
 	end
 end
 
-function animation.explosion(x, y, type)
-	segment = math.random(3,6)
-	colour = math.random(0,10)
-	table.insert(animation, {animationX = x, animationY = y, animationType = type, animationRadius = 5 , animationSegment = segment, animationColour = colour})
-	table.insert(animation, {animationX = x, animationY = y, animationType = type, animationRadius = 20, animationSegment = segment, animationColour = colour })
-	table.insert(animation, {animationX = x, animationY = y, animationType = type, animationRadius = 60, animationSegment = segment, animationColour = colour })
+function animation.start(x, y, type, segment, colour)
+	if type == "explosion" then
+		numberofLines = 30
+		
+		
+			table.insert(animation, {animationX = x, animationY = y, animationType = type, animationRadius = 1, animationSegment = segment, animationColour = colour})
+		
+	elseif type == "hit" then
+		table.insert(animation, {animationX = x, animationY = y, animationType = type, animationRadius = 1 , animationSegment = segment, animationColour = colour})
+	end
 end
 
 function animation.draw(x, y)
 	for i,v in ipairs(animation) do
 		if v.animationType == "explosion" then
-			if v.animationRadius > 800 then
+			if v.animationRadius > 1000 then
 				table.remove(animation, i)
 			end
 			pickNeon(v.animationColour)
 			v.animationRadius = v.animationRadius + 10
-
-			love.graphics.circle( "line", v.animationX, v.animationY, v.animationRadius, v.animationSegment)	
+			love.graphics.setLineWidth(50)
+			love.graphics.circle( "line", v.animationX, v.animationY, v.animationRadius, v.animationSegment)
+			love.graphics.setLineWidth(1)
+		elseif v.animationType == "hit" then
+			if v.animationRadius > 20 then
+				table.remove(animation, i)
+			end
+			pickNeon(v.animationColour)
+			v.animationRadius = v.animationRadius + 1
+			love.graphics.circle( "line", v.animationX, v.animationY, v.animationRadius, v.animationSegment)
 		end
 	end
 end
+

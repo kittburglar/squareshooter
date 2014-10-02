@@ -1,6 +1,8 @@
-bullet_speed = 2000
+bullet_speed = 1000
 bullet = {}
 ID = 0;
+require "animation"
+
 function bullet.spawn(x,y,dir,size)
 	
 	bullet.b = love.physics.newBody(world,x,y,"dynamic")
@@ -12,15 +14,15 @@ function bullet.spawn(x,y,dir,size)
 	bullet.f:setUserData("Bullet" .. tostring(ID))
 	io.write("BulletID is: " .. tostring(ID) .. "\n");
 
-	table.insert(bullet, {bulletID = tostring(ID); hitwall = false, width = size, height = size,x = bullet.b:getX(), y = bullet.b:getY(), dir = dir, body = bullet.b, shape = bullet.s, fixture = bullet.f})
+	table.insert(bullet, {bulletColor = 0; bulletID = tostring(ID); hitwall = false, width = size, height = size,x = bullet.b:getX(), y = bullet.b:getY(), dir = dir, body = bullet.b, shape = bullet.s, fixture = bullet.f})
 	ID = ID + 1;
 	end
 
 function bullet.draw()
 	for i,v in ipairs(bullet) do
-		love.graphics.setColor(0,255,0)
-		love.graphics.rectangle('fill',v.body:getX()-5,v.body:getY()-5,v.width,v.height)
-
+		pickNeon(v.bulletID % numberofColours)
+		--love.graphics.rectangle('fill',v.body:getX()-5,v.body:getY()-5,v.width,v.height)
+		love.graphics.circle( "line", v.body:getX()-5,v.body:getY()-5, v.width/2, (v.bulletID % 4) + 3)
 	end
 end
 
