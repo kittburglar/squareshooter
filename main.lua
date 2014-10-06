@@ -68,10 +68,10 @@ end
 function beginContact(a, b, coll)
 	local x1, y1 = coll:getPositions()
 	if(a:getUserData():sub(0,6) == "Bullet") then
-		animation.start(x1, y1, "hit", (tonumber(a:getUserData():sub(7,100)) % 4) + 3, tonumber(a:getUserData():sub(7,100)) % numberofColours)
+		animation.start(x1, y1, "hit", (tonumber(a:getUserData():sub(7,100)) % 4) + 3, tonumber(a:getUserData():sub(7,100)) % numberofColours,1)
 	end
 	if(b:getUserData():sub(0,6) == "Bullet") then
-		animation.start(x1, y1, "hit", (tonumber(b:getUserData():sub(7,100)) % 4) + 3, tonumber(b:getUserData():sub(7,100)) % numberofColours )
+		animation.start(x1, y1, "hit", (tonumber(b:getUserData():sub(7,100)) % 4) + 3, tonumber(b:getUserData():sub(7,100)) % numberofColours,1)
 	end
 	if(a:getUserData():sub(0,6) == "Bullet") and (b:getUserData() == "Bounds") then
 		--io.write("BulletID is: " .. a:getUserData():sub(7,100) .. "\n")
@@ -93,7 +93,7 @@ function beginContact(a, b, coll)
 				if (tonumber(v.hitpoints) == 0) then 
 					io.write("hitpoint is: " .. v.hitpoints .. "\n")
 					io.write("remove at position: " .. tostring(i) .. "\n")
-					animation.start(x1,y1, "explosion", (tonumber(a:getUserData():sub(7,100)) % 4) + 3, tonumber(a:getUserData():sub(7,100)) % numberofColours)
+					animation.start(x1,y1, "explosion", (tonumber(a:getUserData():sub(7,100)) % 4) + 3, tonumber(a:getUserData():sub(7,100)) % numberofColours,1)
 					b:destroy()
 					table.remove(enemy, i)
 					player.upscore(50)
@@ -115,7 +115,7 @@ function beginContact(a, b, coll)
 				if (tonumber(v.hitpoints) == 0) then 
 					io.write("hitpoint is: " .. v.hitpoints .. "\n")
 					io.write("remove at position: " .. tostring(i) .. "\n")
-					animation.start(x1,y1, "explosion", (tonumber(b:getUserData():sub(7,100)) % 4) + 3, tonumber(b:getUserData():sub(7,100)) % numberofColours)
+					animation.start(x1,y1, "explosion", (tonumber(b:getUserData():sub(7,100)) % 4) + 3, tonumber(b:getUserData():sub(7,100)) % numberofColours, 1)
 					a:destroy()
 					
 					table.remove(enemy, i)
@@ -146,7 +146,7 @@ function beginContact(a, b, coll)
 					io.write("hitpoint is: " .. v.hitpoints .. "\n")
 					io.write("remove at position: " .. tostring(i) .. "\n")
 					b:destroy()
-					animation.start(x1,y1, "explosion", shape, math.random(0,10))
+					animation.start(x1,y1, "explosion", shape, math.random(0,10), 1)
 					table.remove(enemy, i)
 					if (table.maxn(enemy) == 0) then
 						endLevel()
@@ -167,7 +167,7 @@ function beginContact(a, b, coll)
 				v.hitpoints = v.hitpoints - 1
 				progressbar:SetValue(player.health, progressbar:GetMax())
 
-				animation.start(x1,y1, "explosion", shape, math.random(0,10))
+				animation.start(x1,y1, "explosion", shape, math.random(0,10), 1)
 				if (tonumber(player.health) == 0) then
 					endLevel()
 				end

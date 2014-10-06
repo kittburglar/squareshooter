@@ -28,16 +28,8 @@ function pickNeon(number)
 	end
 end
 
-function animation.start(x, y, type, segment, colour)
-	if type == "explosion" then
-		numberofLines = 30
-		
-		
-			table.insert(animation, {animationX = x, animationY = y, animationType = type, animationRadius = 1, animationSegment = segment, animationColour = colour})
-		
-	elseif type == "hit" then
-		table.insert(animation, {animationX = x, animationY = y, animationType = type, animationRadius = 1 , animationSegment = segment, animationColour = colour})
-	end
+function animation.start(x, y, type, segment, colour, radius)
+	table.insert(animation, {animationX = x, animationY = y, animationType = type, animationRadius = radius, animationSegment = segment, animationColour = colour})
 end
 
 function animation.draw(x, y)
@@ -56,8 +48,17 @@ function animation.draw(x, y)
 				table.remove(animation, i)
 			end
 			pickNeon(v.animationColour)
-			v.animationRadius = v.animationRadius + 1
+			v.animationRadius = v.animationRadius + 3
 			love.graphics.circle( "line", v.animationX, v.animationY, v.animationRadius, v.animationSegment)
+		elseif v.animationType == "spawn" then
+			if v.animationRadius > 200 then
+				table.remove(animation, i)
+			end
+			pickNeon(v.animationColour)
+			v.animationRadius = v.animationRadius + 3
+			love.graphics.setLineWidth(3)
+			love.graphics.circle( "line", v.animationX, v.animationY, v.animationRadius, v.animationSegment)
+			love.graphics.setLineWidth(1)
 		end
 	end
 end

@@ -26,6 +26,7 @@ function enemy.spawn(x,y,dir,hp)
 	local dx = player.b:getX() - enemy.b:getX()
 	local angle = (math.atan2(dy,dx)* 180 / math.pi) - 90
 	enemy.b:setAngle(math.rad(angle))
+	animation.start(x,y,"spawn", math.random(3,6) , math.random(0,10), 1)
 	table.insert(enemy, {hitpoints = hp, 
 							width = enemy.width, 
 							height = enemy.height,
