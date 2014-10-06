@@ -26,7 +26,7 @@ function enemy.spawn(x,y,dir,hp)
 	local dx = player.b:getX() - enemy.b:getX()
 	local angle = (math.atan2(dy,dx)* 180 / math.pi) - 90
 	enemy.b:setAngle(math.rad(angle))
-	animation.start(x,y,"spawn", math.random(3,6) , math.random(0,10), 1)
+	animation.start(x,y,"spawn", 100 , math.random(0,10), 30)
 	table.insert(enemy, {hitpoints = hp, 
 							width = enemy.width, 
 							height = enemy.height,
@@ -49,6 +49,7 @@ function enemy.draw()
 		--love.graphics.setColor(math.random(0,255),math.random(0,255),math.random(0,255))
 		--love.graphics.setColor(0,0,255)
 		--love.graphics.rectangle('fill',v.body:getX()-v.width/2,v.body:getY()-v.width/2,v.width,v.height)
+		
 		love.graphics.draw(v.image, v.body:getX(), v.body:getY(), v.body:getAngle(), 1, 1, v.width/2, v.height/2)
 		--end
 	end

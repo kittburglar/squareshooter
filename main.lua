@@ -9,6 +9,7 @@ require "interface"
 require "animation"
 cron = require 'cron'
 bounds1 = {}
+stars = {}
 paused = false
 shader = love.graphics.newShader[[
     extern vec2 size = vec2(20,20);
@@ -247,7 +248,7 @@ end
 function love.draw()
 	--love.graphics.setShader(shader)
 	camera:set()
-	--renderBackground()
+	renderBackground()
 	animation.draw()
 	border.draw()
 	DRAW_PLAYER()
@@ -262,21 +263,26 @@ end
 
 function fillStarArray()
 	for i=1, numberofStars do
-		xStar[i] = math.random(0,maxBorderX)
-		yStar[i] = math.random(0,maxBorderY) 
+		size = math.random(2,3)
+		table.insert(stars, {x = math.random(maxBorderX/2 - 400,maxBorderX/2 + 400),
+							y = math.random(maxBorderX/2 - 400, maxBorderX/2 + 400),
+							width = size,
+							height = size
+							})
 	end
 end
 
 
 
 function renderBackground()
-	for i = 1, numberofStars/2 do
+	for i,v in ipairs(stars) do
 		love.graphics.setColor(255,255,220)
-		love.graphics.rectangle("fill", xStar[i], yStar[i], math.random(5,7), math.random(5,7))
-	end
-	for j = numberofStars/2, numberofStars do
-		love.graphics.setColor(255,255,220)
-		love.graphics.rectangle("fill", xStar[j], yStar[j], math.random(3,5), math.random(3,5))
+		flicker = math.random(0,1)
+		if flicker == 0 then
+			love.graphics.rectangle("fill", v.x, v.y, v.width, v.height)
+		else
+			love.graphics.rectangle("fill", v.x, v.y, v.width+2, v.height+2)
+		end
 	end
 	backgroundRendered = true;
 end

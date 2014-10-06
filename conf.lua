@@ -1,7 +1,7 @@
 maxBorderX = 10000
 maxBorderY = 10000
 groundlevel = 500
-numberofStars = 2000
+numberofStars = 100
 gravity = 900
 
 function love.conf(t)

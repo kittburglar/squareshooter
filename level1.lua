@@ -11,6 +11,10 @@ function level1.load()
 		if i < numberofEnemies then
 			enemy.spawn(math.random(maxBorderX/2 - 300,maxBorderX/2 + 300),math.random(maxBorderX/2 - 300, maxBorderX/2 + 300),i,1) 
 			i = i + 1
+			enemy.spawn(math.random(maxBorderX/2 - 300,maxBorderX/2 + 300),math.random(maxBorderX/2 - 300, maxBorderX/2 + 300),i,1) 
+			i = i + 1
+			enemy.spawn(math.random(maxBorderX/2 - 300,maxBorderX/2 + 300),math.random(maxBorderX/2 - 300, maxBorderX/2 + 300),i,1) 
+			i = i + 1
 		end
 	end)
 end

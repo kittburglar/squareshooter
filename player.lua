@@ -12,6 +12,7 @@ function player.load()
 	player.health = 10
 	player.speed = 200
 	player.score = 0
+	player.boost = 1000
 	--collusion
 	--player = {}
 	player.b = love.physics.newBody(world,player.x,player.y,"dynamic")
@@ -30,6 +31,7 @@ end
 
 function player.draw()
 	--love.graphics.rectangle('fill',player.b:getX()-player.width/2,player.b:getY()-player.width/2,player.width,player.height)
+	
 	love.graphics.draw(player.image, player.b:getX(), player.b:getY(), player.b:getAngle(), 1, 1, player.width/2, player.height/2)
 end
 
@@ -61,7 +63,18 @@ function player.move(dt)
 			--player.b:applyForce(0,-player.speed)
 			local thrust_fx = -math.sin(player.b:getAngle()) *  player.speed
         	local thrust_fy = math.cos(player.b:getAngle()) *  player.speed
+        	animation.start(player.b:getX(), player.b:getY(), "boost", math.random(3,6), math.random(0,10), 1)
+			
         	player.b:applyForce (thrust_fx, thrust_fy)
+		end
+		if love.keyboard.isDown(' ') then
+			
+			--player.b:applyForce(0,-player.speed)
+
+			animation.start(player.b:getX(), player.b:getY(), "boost", math.random(3,6), math.random(0,10), 1)
+			local thrust_fx = -math.sin(player.b:getAngle()) *  player.boost
+        	local thrust_fy = math.cos(player.b:getAngle()) *  player.boost
+        	player.b:applyForce (thrust_fx , thrust_fy)
 		end
 		if player.b:getAngularVelocity() > 0 then
 			player.b:setAngularVelocity(player.b:getAngularVelocity() - 0.03)

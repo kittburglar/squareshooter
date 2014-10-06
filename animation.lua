@@ -51,15 +51,31 @@ function animation.draw(x, y)
 			v.animationRadius = v.animationRadius + 3
 			love.graphics.circle( "line", v.animationX, v.animationY, v.animationRadius, v.animationSegment)
 		elseif v.animationType == "spawn" then
-			if v.animationRadius > 200 then
+			if v.animationRadius < 20 then
+				table.remove(animation, i)
+			end
+
+			pickNeon(v.animationColour)
+			v.animationRadius = v.animationRadius - 3
+			love.graphics.setLineWidth(3)
+			love.graphics.circle( "line", v.animationX, v.animationY, v.animationRadius, v.animationSegment)
+			love.graphics.setLineWidth(1)
+		elseif v.animationType == "jets" then
+			if v.animationRadius > 10 then
+				table.remove(animation, i)
+			end
+			pickNeon(v.animationColour)
+			v.animationRadius = v.animationRadius + 0.1
+			love.graphics.circle( "line", v.animationX, v.animationY, v.animationRadius, v.animationSegment)
+		elseif v.animationType == "boost" then
+			if v.animationRadius > 20 then
 				table.remove(animation, i)
 			end
 			pickNeon(v.animationColour)
 			v.animationRadius = v.animationRadius + 3
-			love.graphics.setLineWidth(3)
 			love.graphics.circle( "line", v.animationX, v.animationY, v.animationRadius, v.animationSegment)
-			love.graphics.setLineWidth(1)
 		end
+
 	end
 end
 
